@@ -1,4 +1,6 @@
+import logging
 
+log = logging.getLogger('advent')
 
 class Cell:
     def __init__(self, x, y, grid_serial_number):
@@ -77,9 +79,14 @@ class Grid:
                 print(current_square_power)
                 return coordinate
 
-
-grid = Grid(size=300, grid_serial_number=5177)
-print(grid.max_power_top_left_coordinate())
+if __name__=='__main__':
+    log.info('Run directly')
+    grid = Grid(size=300, grid_serial_number=5177)
+    result = grid.max_power_top_left_coordinate()
+    log.info(result)
+    print(result)
+else:
+    log.info('Imported')
 # 1.6 seconds using hash tables 1.45 seconds using arrays ...
  # much easier to read using hash tables
 
