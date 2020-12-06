@@ -1,6 +1,23 @@
-import logging
+import logging, sys
 
-log = logging.getLogger('advent')
+
+class Day11Constants:
+    DEBUG = False
+
+
+log = logging.getLogger()
+log.setLevel(logging.DEBUG)
+handler = logging.StreamHandler(sys.stdout)
+if Day11Constants.DEBUG:
+    handler.setLevel(logging.DEBUG)
+else:
+    handler.setLevel(logging.INFO)
+
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+
+log.addHandler(handler)
+
 
 class Cell:
     def __init__(self, x, y, grid_serial_number):
@@ -74,16 +91,16 @@ class Grid:
                     if current_square_power > max_power:
                         max_power = current_square_power
                         coordinate = f'<{x},{y},{square_size}>'
-            print(square_size, coordinate, max_power, current_square_size_max)
+            log.debug(f'{square_size}, {coordinate}, {max_power}, {current_square_size_max}')
             if current_square_size_max < max_power:
-                print(current_square_power)
+                log.debug(coordinate)
                 return coordinate
 
 if __name__=='__main__':
     log.info('Run directly')
     grid = Grid(size=300, grid_serial_number=5177)
     result = grid.max_power_top_left_coordinate()
-    log.info(result)
+    log.info(f'result was {result}')
     print(result)
 else:
     log.info('Imported')
